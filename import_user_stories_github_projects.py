@@ -5,10 +5,10 @@ import sys
 from pathlib import Path
 
 
-OWNER = "rgap"
-REPO = "Coolbox-B2B-WebApp"
+OWNER = "lacut2612"
+REPO = "TechFinPeru-WebApp"
 FULL_REPO = f"{OWNER}/{REPO}"
-PROJECT_TITLE = "Coolbox B2B WebApp"
+PROJECT_TITLE = "TechFin Peru WebApp"
 CSV_PATH = Path("user_stories.csv")
 COLUMNS = ["Product Backlog", "To Do", "In Progress", "Testing", "Done"]
 INITIAL_STATUS = "Product Backlog"
