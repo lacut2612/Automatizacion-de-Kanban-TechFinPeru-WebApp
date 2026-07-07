@@ -38,7 +38,7 @@ Las tareas deben ser varias técnicas con términos técnicos porque las realiza
 
 ## Descripción
 
-El MVP v1.0 es una versión simple del sistema de seguimiento post-venta B2B para Coolbox.
+El MVP v1.0 es una versión simple del sistema de seguimiento post-venta para TechFin Perú.
 
 Se desarrolla en 4 sprints de 1 semana cada uno. En esta versión solo se trabaja el registro de clientes y la generación de alertas.
 
@@ -60,23 +60,24 @@ Al final de los 4 sprints debe existir una versión básica donde se puedan regi
 
 [contexto]
 
-Empresa: Coolbox, empresa de retail especializado en tecnología (B2B y B2C), operada por Rash Perú S.R.L. Con más de 150 tiendas en Lima y provincias, y un canal corporativo B2B dedicado a empresas, instituciones y emprendimientos.
+Empresa: TechFin Perú S.A.C., empresa dedicada a la comercialización y distribución de productos tecnológicos (laptops, computadoras, accesorios y dispositivos electrónicos), orientada a ofrecer soluciones digitales integradas para optimizar la gestión comercial.
 
-Proceso analizado: Ventas corporativas B2B, desde el primer contacto del cliente hasta el seguimiento post-venta.
+Proceso analizado: Ventas y seguimiento post-venta de clientes comerciales y corporativos, desde el registro del pedido en la plataforma web hasta el control de la relación post-venta desde el panel administrativo.
 
-Problema central identificado en el avance anterior: Los encargados de ventas corporativas gestionan entre 15 y 30 clientes corporativos de forma simultánea. Al no contar con un sistema de seguimiento automatizado, dependen de su memoria y de hojas de cálculo para recordar cuándo contactar a cada cliente después de una venta. Esto genera pérdida sistemática de oportunidades de recompra y up-selling, en especial en productos tecnológicos con ciclos de renovación predecibles (laptops, equipos de cómputo, cámaras de seguridad).
+Problema central identificado en el avance anterior: Los encargados de ventas comerciales gestionan entre 15 y 30 clientes de forma simultánea. Al no contar con un sistema de seguimiento automatizado, dependen de su memoria y de hojas de cálculo para recordar cuándo contactar a cada cliente después de una venta. Esto genera una pérdida sistemática de oportunidades de recompra y up-selling, en especial en productos tecnológicos con ciclos de renovación y mantenimiento predecibles (laptops, equipos de cómputo, componentes de hardware).
 
-Innovación propuesta: Implementar alertas automáticas en un CRM B2B que notifiquen al encargado de ventas en el momento óptimo para contactar a cada cliente corporativo, calculadas en función de la vida útil estimada del producto adquirido.
+Innovación propuesta: Implementar un módulo de alertas automáticas dentro de un sistema CRM integrado con la plataforma web, el cual notifique al encargado de ventas en el momento óptimo para contactar a cada cliente, calculadas automáticamente en función de la vida útil estimada o ciclo de renovación del producto tecnológico adquirido.
 
 [/contexto]
 
+
 [protopersona]
 
-**Nombre y apellido:** Diego Salas
-**Rol / tipo de usuario:** Encargado de Ventas Corporativas B2B
-**Descripción del rol:** Persona responsable de gestionar la cartera de clientes corporativos de Coolbox, desde el primer contacto hasta el cierre de la venta y el seguimiento post-venta.
-**Puntos de dolor:** Atiende entre 15 y 30 clientes corporativos de forma simultánea sin una herramienta que le indique cuándo contactar a cada cliente. Pierde oportunidades de recompra por olvido. Cuando recuerda llamar, el cliente ya cotizó con la competencia.
-**Necesidades:** Un sistema que le notifique automáticamente cuándo contactar a cada cliente, con el contexto suficiente (empresa, producto comprado, monto, fecha) para personalizar la llamada en menos de un minuto, sin necesidad de buscar información en otra pantalla.
+**Nombre y apellido:** Miqueas Lancho
+**Rol / tipo de usuario:** Administrador Comercial / Encargado de Ventas de TechFin Perú S.A.C.
+**Descripción del rol:** Responsable de supervisar el flujo de ventas generales, coordinar al equipo comercial, mantener actualizado el catálogo de productos y asegurar el control del seguimiento post-venta de los clientes de la empresa.
+**Puntos de dolor:** Actualmente administra información dispersa entre mensajes, registros manuales y hojas de cálculo (Excel). Al no contar con un sistema centralizado, le resulta imposible supervisar si los vendedores están contactando a los clientes en el momento óptimo de renovación tecnológica, lo que genera retrasos, desorganización y una pérdida visible de ventas corporativas recurrentes.
+**Necesidades:** Requiere un panel administrativo (Dashboard CRM) centralizado que no solo le permita ver las ventas, sino configurar los ciclos de vida de los productos tecnológicos para que el sistema genere las alertas automáticas. Necesita supervisar en tiempo real el estado de seguimiento de cada cliente asignado a su equipo para mejorar radicalmente la organización, la trazabilidad comercial y la efectividad de las recompras.
 
 [/protopersona]
 
@@ -84,27 +85,25 @@ Innovación propuesta: Implementar alertas automáticas en un CRM B2B que notifi
 
 **Taskflow 1:** Revisión y acción sobre una alerta de recompra urgente _(Happy Path)_
 
-**Rol / tipo de usuario:** Encargado de Ventas Corporativas B2B
+**Rol / tipo de usuario:** Encargado de Ventas Comerciales y Corporativas
 
-**Objetivo del usuario dentro del sistema:** Identificar el cliente corporativo más urgente del día, revisar su contexto y registrar el resultado del contacto realizado sin desvíos ni errores
+**Objetivo del usuario dentro del sistema:** Identificar el cliente comercial o corporativo más urgente del día dentro del CRM de TechFin, revisar su contexto de hardware adquirido y registrar el resultado del contacto post-venta realizado sin desvíos ni errores.
 
-```text
-1. Ingresa al CRM
-2. Mira el Dashboard del Encargado de Ventas
-3. Mira el widget "Alertas de recompra activas"
-4. Identifica 2 alertas en rojo en el contador "Urgentes"
-5. Hace clic en la tarjeta de la primera alerta urgente
-6. Mira la Vista: Ficha del cliente
-7. Lee el nombre de la empresa, el contacto, el producto, el monto y la fecha de la última compra
-8. Realiza la llamada al cliente fuera del sistema
-9. Hace clic en el botón "Registrar contacto"
-10. Mira el Modal: Registro de contacto
-11. Selecciona el resultado del contacto (ej. "Interesado en recompra")
-12. Escribe una nota sobre la conversación
-13. Confirma o edita la fecha del próximo seguimiento
-14. Hace clic en "Guardar y cerrar"
-15. Mira el Dashboard del Encargado de Ventas con la alerta cerrada y el contador actualizado
-```
+1. Ingresa al CRM de TechFin Perú S.A.C.
+2. Mira el Dashboard del Encargado de Ventas.
+3. Mira el widget "Alertas de Recompra por Obsolescencia Tecnológica".
+4. Identifica 2 alertas en rojo en el contador de clientes con equipos en estado "Crítico / Urgente" (ciclo de vida útil vencido).
+5. Hace clic en la tarjeta de la primera alerta de renovación urgente.
+6. Mira la Vista: Ficha del cliente comercial.
+7. Lee la razón social de la empresa, el contacto clave, el lote de productos tecnológicos adquiridos, el monto y la fecha de la última compra.
+8. Realiza la llamada telefónica de seguimiento al cliente fuera del sistema para ofrecer la renovación de los equipos.
+9. Hace clic en el botón "Registrar contacto" dentro de la misma ficha.
+10. Mira el Modal: Registro de Gestión Comercial.
+11. Selecciona el resultado del contacto (ej. "Interesado en renovación/up-selling").
+12. Escribe una nota detallada sobre la conversación y los requerimientos de hardware del cliente.
+13. Confirma o edita la fecha programada para el próximo seguimiento comercial.
+14. Hace clic en "Guardar y cerrar".
+15. Mira el Dashboard del Encargado de Ventas con la alerta procesada correctamente y el contador de urgencias actualizado en tiempo real.
 
 [/taskflow]
 
@@ -112,106 +111,102 @@ Innovación propuesta: Implementar alertas automáticas en un CRM B2B que notifi
 
 [arquitectura]
 
-```text
-Vista: Dashboard del Encargado de Ventas
-	Sección: Barra superior
-		Nombre del encargado activo
-		Ícono: Notificaciones
-		Ícono: Ayuda
-	Sección: Alertas de recompra activas
-		Contador: Urgentes (vencidas o con vencimiento hoy) -> Vista: Ficha del cliente
-		Contador: Próximas (1–7 días) -> Vista: Ficha del cliente
-		Contador: En seguimiento (8–30 días) -> Vista: Ficha del cliente
-		Tarjeta de alerta
-			Nombre de la empresa
-			Producto de la última compra
-			Monto
-			Días restantes
-			Botón: Ver ficha -> Vista: Ficha del cliente
-			Botón: Posponer
-	Sección: Actividades del día
-		Lista de llamadas pendientes
+Vista: Dashboard del Encargado de Ventas Comerciales
+    Sección: Barra superior
+        Nombre del encargado activo
+        Ícono: Notificaciones de alertas
+        Ícono: Soporte y Ayuda
+    Sección: Alertas de Recompra por Obsolescencia Tecnológica
+        Contador: Equipos en estado Crítico (vencidas o con vencimiento hoy) -> Vista: Ficha del cliente comercial
+        Contador: Renovaciones Próximas (1–7 días) -> Vista: Ficha del cliente comercial
+        Contador: En Monitoreo / Seguimiento (8–30 días) -> Vista: Ficha del cliente comercial
+        Tarjeta de Alerta de Hardware
+            Razón Social de la empresa
+            Lote / Producto de la última compra (ej. Laptops, Servidores)
+            Monto del pedido anterior
+            Días restantes para el fin de ciclo útil estimado
+            Botón: Ver ficha técnica del cliente -> Vista: Ficha del cliente comercial
+            Botón: Posponer alerta
+    Sección: Agenda Comercial del Día
+        Lista de llamadas y correos de seguimiento pendientes
 
-Vista: Ficha del cliente
-	Enlace: Volver al Dashboard -> Vista: Dashboard del Encargado de Ventas
-	Nombre de la empresa
-	RUC
-	Contacto principal
-		Nombre
-		Teléfono
-	Encargado asignado
-	Sección: Última compra
-		Producto
-		Cantidad
-		Monto
-		Fecha de cierre
-		Campo editable: Ciclo de recompra (días)
-		Fecha de alerta calculada
-	Sección: Notas del encargado de ventas
-		Texto libre editable
-	Sección: Acciones
-		Botón: Registrar contacto -> Modal: Registro de contacto
-		Botón: Posponer (N días)
-		Botón: Sin oportunidad actual
+Vista: Ficha del cliente comercial
+    Enlace: Volver al Dashboard -> Vista: Dashboard del Encargado de Ventas Comerciales
+    Razón Social de la empresa
+    RUC (Registro Único de Contribuyentes)
+    Contacto Principal de la Empresa
+        Nombre del tomador de decisiones (ej. Jefe de TI / Compras)
+        Teléfono / Correo institucional
+    Encargado Comercial asignado (TechFin)
+    Sección: Historial de la Última Adquisición Tecnológica
+        Producto / Categoría de hardware
+        Cantidad de unidades adquiridas
+        Monto total de la transacción
+        Fecha de cierre del pedido original
+        Campo editable: Ciclo de vida útil estimado del producto (días)
+        Fecha programada de alerta (calculada automáticamente)
+    Sección: Bitácora e Historial de Notas del Encargado de Ventas
+        Texto libre editable para incidencias o comentarios
+    Sección: Acciones Comerciales
+        Botón: Registrar gestión post-venta -> Modal: Registro de contacto comercial
+        Botón: Posponer alerta de renovación (N días)
+        Botón: Marcar como Sin oportunidad actual / Cuenta inactiva
 
-Modal: Registro de contacto
-	Ícono: Cerrar modal
-	Selector: Resultado del contacto
-		Opción: Interesado en recompra
-		Opción: No interesado actualmente
-		Opción: No contestó
-	Campo: Notas del contacto
-	Campo editable: Fecha del próximo seguimiento (default: fecha actual + ciclo de recompra)
-	Botón: Guardar y cerrar
-	Botón: Cancelar
+Modal: Registro de contacto comercial
+    Ícono: Cerrar modal
+    Selector: Resultado de la gestión post-venta
+        Opción: Interesado en renovación de hardware / Up-selling
+        Opción: No interesado en este ciclo
+        Opción: Cliente no contestó / Remitir correo
+    Campo: Notas y detalles de la llamada
+    Campo editable: Fecha del próximo contacto (default: fecha actual + ciclo de vida del equipo)
+    Botón: Guardar gestión y cerrar
+    Botón: Cancelar
 
-Vista: Clientes
-	Sección: Barra superior
-		Nombre del encargado activo
-		Ícono: Notificaciones
-		Ícono: Ayuda
-	Sección: Listado de empresas
-		Buscador
-		Tarjeta de empresa
-			Nombre
-			RUC
-			Encargado asignado
-			Enlace: Ver ficha -> Vista: Ficha del cliente
+Vista: Cartera de Clientes / Empresas
+    Sección: Barra superior
+        Nombre del encargado activo
+        Ícono: Notificaciones
+    Sección: Listado de Cuentas Comerciales
+        Buscador por RUC o Razón Social
+        Tarjeta de la Empresa
+            Nombre comercial
+            RUC
+            Ejecutivo de cuentas asignado
+            Enlace: Ver ficha técnica -> Vista: Ficha del cliente comercial
 
-Vista: Pipeline de Ventas B2B
-	Sección: Barra superior
-		Nombre del encargado activo
-		Ícono: Notificaciones
-		Ícono: Ayuda
-	Sección: Tablero de etapas
-		Columna: Prospecto
-		Columna: Cotización enviada
-		Columna: Evaluación crediticia
-		Columna: Venta cerrada (activa el workflow de alerta automáticamente)
-		Columna: Seguimiento activo
-		Tarjeta de oportunidad
-			Nombre de la empresa
-			Monto
-			Fecha estimada de cierre
+Vista: Pipeline de Ventas Corporativas
+    Sección: Barra superior
+        Nombre del encargado activo
+    Sección: Tablero Kanban de Oportunidades
+        Columna: Prospección / Lead Comercial
+        Columna: Cotización de Hardware Enviada
+        Columna: Evaluación de Crédito Comercial
+        Columna: Venta Cerrada (Activa automáticamente el temporizador de ciclo de vida útil del hardware)
+        Columna: Post-venta / Seguimiento Activo
+        Tarjeta de Oportunidad de Negocio
+            Razón Social de la empresa
+            Monto proyectado de la venta
+            Fecha estimada de cierre de negociación
 
-Vista: Panel Gerencial
-	Sección: Barra superior
-		Nombre del gerente activo
-		Ícono: Notificaciones
-		Ícono: Ayuda
-	Sección: Métricas del equipo
-		Contador: Alertas vencidas sin acción
-		Contador: Contactos realizados esta semana
-		Indicador: Tasa de conversión seguimiento → nueva cotización
-	Sección: Filtros
-		Selector: Filtrar por encargado de ventas
-		Selector: Filtrar por período
-	Sección: Tabla de seguimiento
-		Fila por encargado de ventas
-			Nombre del encargado de ventas
-			Alertas vencidas
-			Contactos registrados
-			Conversión
-```
+Vista: Panel Gerencial / Dashboard de Supervisión
+    Sección: Barra superior
+        Nombre del Gerente Comercial activo
+    Sección: Indicadores de Rendimiento (KPIs) del Equipo
+        Contador: Alertas críticas de renovación vencidas sin acción comercial
+        Contador: Contactos post-venta efectivos realizados en la semana
+        Indicador (%): Tasa de conversión (Alerta de obsolescencia -> Nueva cotización de hardware)
+    Sección: Filtros de Control
+        Selector: Filtrar por ejecutivo de ventas de TechFin
+        Selector: Filtrar por período de evaluación (Mensual/Trimestral)
+    Sección: Matriz de Trazabilidad Comercial
+        Fila por encargado de ventas
+            Nombre del ejecutivo
+            Alertas de obsolescencia ignoradas / vencidas
+            Contactos comerciales registrados
+            Porcentaje de efectividad en recompras
 
 [/arquitectura]
+
+
+
