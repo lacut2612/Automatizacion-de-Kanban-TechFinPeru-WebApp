@@ -1,256 +1,253 @@
-"Titulo","Descripción","Referencias visuales","Criterios de aceptación en formato test cases","Tareas","Estimación del esfuerzo (story points)","Prioridad","Etiquetas (labels)"
-"US-01 | Feature: Configurar base del CRM B2B y navegación MVP","Se necesita una base funcional del CRM B2B para que el encargado de ventas pueda ingresar a las vistas del MVP sin depender de pantallas fuera de alcance.
+Titulo,Descripción,Referencias visuales,Criterios de aceptación en formato test cases,Tareas,Estimación del esfuerzo (story points),Prioridad,Etiquetas (labels)
+"US-01 | Feature: Registro de nuevos clientes comerciales","Actualmente, los nuevos clientes comerciales de TechFin Perú S.A.C. se registran de manera manual en hojas de cálculo externas. Se requiere implementar un formulario dentro del CRM para registrar nuevos clientes comerciales y almacenar sus datos de manera estructurada en la base de datos.
 
-Como encargado de ventas corporativas B2B,
-quiero acceder a una interfaz base con navegación entre Dashboard, Clientes y Ficha del cliente,
-para revisar alertas y clientes desde una estructura consistente.","Vista: Dashboard del Encargado de Ventas > Barra superior
-Vista: Clientes > Barra superior
-Vista: Ficha del cliente > Enlace Volver al Dashboard","- [ ] TC-01: Al abrir la aplicación se muestra el Dashboard del Encargado de Ventas como vista inicial
-- [ ] TC-02: La barra superior muestra el nombre del encargado activo
-- [ ] TC-03: La barra superior muestra íconos de notificaciones y ayuda
-- [ ] TC-04: El usuario puede navegar desde Dashboard hacia Clientes sin perder el estado de sesión local
-- [ ] TC-05: El usuario puede volver desde Ficha del cliente hacia Dashboard
-- [ ] TC-06: Las rutas no implementadas del MVP muestran una vista controlada o redirección segura","- [ ] FE-01: Configurar routing client-side para `/dashboard`, `/clientes` y `/clientes/:id`
-- [ ] FE-02: Implementar layout base con barra superior reusable
-- [ ] FE-03: Crear componente de navegación mínima del MVP
-- [ ] FE-04: Integrar íconos de notificaciones y ayuda con estados no funcionales controlados
-- [ ] BE-01: Exponer configuración de usuario activo mockeado para el MVP
-- [ ] QA-01: Validar navegación principal en desktop y mobile
-- [ ] DOC-01: Documentar rutas habilitadas y rutas fuera de alcance del MVP v1.0","3","Alta","navegacion,frontend"
-"US-02 | Feature: Modelar datos de clientes, compras y alertas","Se necesita una estructura de datos mínima para registrar empresas, guardar compras anteriores y generar alertas de recompra con información suficiente para Diego Salas.
+**Como** Encargado de Ventas Comerciales,
+**quiero** registrar nuevos clientes comerciales ingresando su Razón Social, RUC, y datos del contacto principal,
+**para** agregarlos a mi cartera de clientes y centralizar su información.","Vista: Cartera de Clientes / Empresas -> Sección: Listado de Cuentas Comerciales -> Formulario/Botón de Registro","- [ ] TC-01: Registro exitoso de cliente con todos los campos obligatorios válidos.
+- [ ] TC-02: Rechazo de registro si el RUC no tiene exactamente 11 dígitos numéricos o ya existe en el sistema.
+- [ ] TC-03: Validación de campos obligatorios para Razón Social, RUC y correo electrónico del contacto principal.
+- [ ] TC-04: El sistema asigna automáticamente al Encargado Comercial activo como responsable de la cuenta.","### UX/UI Designer
+- [ ] UX-01: Diseñar wireframe del formulario de registro alineado con el diseño premium.
 
-Como equipo SCRUM,
-quiero contar con entidades de cliente, compra y alerta,
-para soportar el registro básico de clientes y las alertas de recompra del MVP.","Vista: Ficha del cliente > Nombre de la empresa, RUC, Contacto principal, Última compra
-Vista: Dashboard del Encargado de Ventas > Alertas de recompra activas","- [ ] TC-01: La entidad cliente permite almacenar nombre de empresa, RUC, contacto principal, teléfono y encargado asignado
-- [ ] TC-02: La entidad compra permite almacenar producto, cantidad, monto, fecha de cierre y ciclo de recompra
-- [ ] TC-03: La entidad alerta permite almacenar cliente, compra asociada, fecha de alerta, estado y prioridad temporal
-- [ ] TC-04: No se crea un módulo CRUD independiente de contactos en el MVP
-- [ ] TC-05: Las relaciones cliente-compra-alerta pueden consultarse desde backend
-- [ ] TC-06: Los campos obligatorios rechazan valores nulos o formatos inválidos","- [ ] DB-01: Diseñar esquema relacional o documento para `clients`, `purchases` y `repurchase_alerts`
-- [ ] DB-02: Definir índices para RUC, encargado asignado y fecha de alerta
-- [ ] BE-01: Implementar modelos y DTOs de cliente, compra y alerta
-- [ ] BE-02: Implementar validaciones de integridad para RUC, fecha y monto
-- [ ] BE-03: Crear migración o script de inicialización de datos
-- [ ] QA-01: Ejecutar pruebas de persistencia y consulta básica
-- [ ] SEC-01: Revisar que no se almacenen datos sensibles fuera del alcance definido","5","Alta","data-model,backend,database"
-"US-03 | Feature: Cargar datos de prueba de clientes y compras anteriores","El MVP requiere clientes existentes y compras históricas para validar las alertas automáticas sin depender de carga manual completa.
+### Database Administrator
+- [ ] DB-01: Diseñar esquema de base de datos y crear tabla `clientes` (RUC, razon_social, ejecutivo_id, etc.).
 
-Como encargado de ventas corporativas B2B,
-quiero ver clientes y compras de prueba desde el primer uso,
-para evaluar si las alertas me ayudan a priorizar llamadas de recompra.","Vista: Dashboard del Encargado de Ventas > Alertas de recompra activas
-Vista: Clientes > Listado de empresas
-Vista: Ficha del cliente > Última compra","- [ ] TC-01: El sistema carga al menos 10 clientes corporativos de prueba
-- [ ] TC-02: Al menos 2 clientes generan alertas urgentes vencidas o con vencimiento hoy
-- [ ] TC-03: Al menos 3 clientes generan alertas próximas entre 1 y 7 días
-- [ ] TC-04: Al menos 3 clientes generan alertas en seguimiento entre 8 y 30 días
-- [ ] TC-05: Cada cliente de prueba incluye última compra con producto, monto y fecha de cierre
-- [ ] TC-06: Los datos de prueba pueden regenerarse sin duplicar registros","- [ ] DB-01: Crear seed dataset con clientes B2B representativos de Coolbox
-- [ ] DB-02: Incluir compras históricas de laptops, equipos de cómputo y cámaras de seguridad
-- [ ] BE-01: Implementar comando o endpoint protegido para poblar datos de prueba en ambiente local
-- [ ] BE-02: Calcular fechas de alerta iniciales durante la carga de seed
-- [ ] QA-01: Verificar distribución de alertas urgentes, próximas y en seguimiento
-- [ ] DOC-01: Documentar cómo reiniciar el dataset de prueba","3","Alta","seed-data,alertas,backend"
-"US-04 | Feature: Registrar cliente corporativo básico","El MVP debe permitir crear un cliente corporativo con los datos necesarios para seguimiento post-venta sin incluir un módulo separado de contactos.
+### Backend Developer
+- [ ] BE-01: Crear endpoint `POST /api/clientes` para recibir e insertar la información.
+- [ ] BE-02: Implementar validación en backend de unicidad del RUC y formato del correo.
 
-Como encargado de ventas corporativas B2B,
-quiero registrar una empresa cliente con datos básicos,
-para incorporarla a mi cartera y habilitar su seguimiento futuro.","Vista: Clientes > Listado de empresas
-Vista: Ficha del cliente > Nombre de la empresa, RUC, Contacto principal","- [ ] TC-01: El usuario puede crear un cliente con nombre de empresa, RUC, nombre de contacto principal, teléfono y encargado asignado
-- [ ] TC-02: El sistema valida que nombre de empresa y RUC sean obligatorios
-- [ ] TC-03: El sistema valida formato y longitud del RUC
-- [ ] TC-04: Si el RUC ya existe, el sistema muestra error y no duplica el cliente
-- [ ] TC-05: Tras guardar, el cliente aparece en la lista de empresas
-- [ ] TC-06: Tras guardar, el usuario puede abrir la ficha del cliente creado","- [ ] UX-01: Diseñar formulario compacto de alta de cliente dentro de la vista Clientes
-- [ ] FE-01: Implementar formulario de registro con validaciones client-side
-- [ ] FE-02: Conectar formulario con endpoint de creación de clientes
-- [ ] BE-01: Crear endpoint `POST /api/clients`
-- [ ] BE-02: Implementar validación server-side de RUC único
-- [ ] DB-01: Persistir cliente con encargado asignado
-- [ ] QA-01: Crear pruebas de alta exitosa, RUC duplicado y campos obligatorios","5","Alta","clientes,registro,frontend,backend"
-"US-05 | Feature: Listar y buscar clientes corporativos","Diego necesita encontrar rápidamente una empresa dentro de una cartera de 15 a 30 clientes para revisar su estado post-venta.
+### Frontend Developer
+- [ ] FE-01: Diseñar formulario interactivo de registro con retroalimentación inmediata en cliente.
+- [ ] FE-02: Integrar el formulario con endpoint `POST /api/clientes` y manejar pantallas de éxito y error.
 
-Como encargado de ventas corporativas B2B,
-quiero ver y buscar mis clientes corporativos,
-para abrir la ficha correcta sin revisar hojas de cálculo externas.","Vista: Clientes > Listado de empresas > Buscador
-Vista: Clientes > Tarjeta de empresa > Enlace Ver ficha","- [ ] TC-01: La vista Clientes muestra tarjetas con nombre, RUC y encargado asignado
-- [ ] TC-02: El buscador filtra clientes por nombre de empresa
-- [ ] TC-03: El buscador filtra clientes por RUC
-- [ ] TC-04: El estado vacío indica que no hay clientes coincidentes
-- [ ] TC-05: El enlace Ver ficha abre la ficha del cliente seleccionado
-- [ ] TC-06: La lista se actualiza después de registrar un nuevo cliente","- [ ] FE-01: Implementar vista Clientes según arquitectura de información
-- [ ] FE-02: Crear componente `ClientCard` con enlace a ficha
-- [ ] FE-03: Implementar búsqueda local o por query param según tamaño del dataset MVP
-- [ ] BE-01: Crear endpoint `GET /api/clients`
-- [ ] BE-02: Soportar filtros por `search` y `assignedSellerId`
-- [ ] QA-01: Validar búsqueda por nombre, RUC y estado vacío
-- [ ] UX-01: Revisar jerarquía visual de tarjetas para lectura rápida","3","Alta","clientes,busqueda,frontend,backend"
-"US-06 | Feature: Consultar ficha básica del cliente","La ficha del cliente debe concentrar el contexto mínimo para que Diego personalice una llamada en menos de un minuto.
+### Quality Assurance
+- [ ] QA-01: Ejecutar pruebas de carga y validaciones negativas del RUC y campos obligatorios.","5","Alta","clientes, registro, sprint-1"
+"US-02 | Feature: Listado de cartera de clientes","Para supervisar y planificar las llamadas diarias, el encargado comercial necesita visualizar la totalidad de las cuentas comerciales que tiene asignadas en un único listado.
 
-Como encargado de ventas corporativas B2B,
-quiero ver la ficha de un cliente con sus datos y última compra,
-para decidir cómo abordar la recompra sin buscar información en otra pantalla.","Vista: Ficha del cliente > Datos del cliente
-Vista: Ficha del cliente > Última compra
-Vista: Ficha del cliente > Notas del encargado de ventas","- [ ] TC-01: La ficha muestra nombre de empresa, RUC, contacto principal y teléfono
-- [ ] TC-02: La ficha muestra encargado asignado
-- [ ] TC-03: La sección Última compra muestra producto, cantidad, monto y fecha de cierre
-- [ ] TC-04: La ficha muestra ciclo de recompra y fecha de alerta calculada
-- [ ] TC-05: La sección Notas del encargado permite visualizar texto libre existente
-- [ ] TC-06: Si no hay última compra, la ficha muestra estado vacío sin romper la vista","- [ ] FE-01: Implementar vista `/clientes/:id` con layout de ficha
-- [ ] FE-02: Crear componentes de datos del cliente, última compra y notas
-- [ ] BE-01: Crear endpoint `GET /api/clients/:id`
-- [ ] BE-02: Incluir última compra y alerta activa en la respuesta agregada
-- [ ] QA-01: Validar render de ficha con y sin última compra
-- [ ] UX-01: Verificar que la información clave quede visible sin scroll excesivo en desktop","5","Alta","ficha-cliente,postventa,frontend,backend"
-"US-07 | Feature: Editar ciclo de recompra y recalcular fecha de alerta","El ciclo de recompra puede variar según producto o cliente, por lo que el encargado necesita ajustarlo desde la ficha.
+**Como** Encargado de Ventas Comerciales,
+**quiero** ver un listado de todas las cuentas comerciales asignadas a mi usuario,
+**para** tener una vista general y rápida del estado básico de mi cartera de clientes.","Vista: Cartera de Clientes / Empresas -> Sección: Listado de Cuentas Comerciales -> Tarjeta de la Empresa","- [ ] TC-01: Visualización correcta del listado de empresas asignadas al usuario activo en formato de tarjetas.
+- [ ] TC-02: Cada tarjeta de empresa muestra Nombre Comercial, RUC y Ejecutivo asignado.
+- [ ] TC-03: Renderizado adecuado cuando el encargado no tiene clientes asignados (estado vacío con ilustración).
+- [ ] TC-04: Implementar paginación o scroll infinito cuando el listado excede las 20 cuentas.","### UX/UI Designer
+- [ ] UX-02: Diseñar el layout responsivo del listado de cartera de clientes y las tarjetas individuales.
 
-Como encargado de ventas corporativas B2B,
-quiero editar el ciclo de recompra de la última compra,
-para que la alerta se calcule con una fecha realista de seguimiento.","Vista: Ficha del cliente > Última compra > Campo editable Ciclo de recompra (días)
-Vista: Ficha del cliente > Última compra > Fecha de alerta calculada","- [ ] TC-01: El campo ciclo de recompra acepta solo números enteros positivos
-- [ ] TC-02: Al cambiar el ciclo, la fecha de alerta calculada se actualiza
-- [ ] TC-03: Al guardar el cambio, el nuevo ciclo queda persistido
-- [ ] TC-04: Si el ciclo es inválido, se muestra error y no se guarda
-- [ ] TC-05: La alerta activa se reubica en Urgentes, Próximas o En seguimiento según la nueva fecha
-- [ ] TC-06: El Dashboard refleja el cambio al volver desde la ficha","- [ ] FE-01: Implementar control editable para ciclo de recompra en días
-- [ ] FE-02: Mostrar feedback de validación y guardado
-- [ ] BE-01: Crear endpoint `PATCH /api/purchases/:id/repurchase-cycle`
-- [ ] BE-02: Implementar servicio de cálculo `alertDate = closingDate + repurchaseCycleDays`
-- [ ] BE-03: Recalcular estado temporal de alerta después del update
-- [ ] QA-01: Probar límites de ciclo inválido, cero, negativo y valor alto
-- [ ] DB-01: Persistir auditoría mínima de fecha de actualización","5","Alta","alertas,recompra,ficha-cliente"
-"US-08 | Feature: Generar alertas de recompra automáticas","La innovación principal del MVP es alertar en el momento óptimo de contacto según la vida útil estimada del producto comprado.
+### Backend Developer
+- [ ] BE-03: Desarrollar endpoint `GET /api/clientes` con filtrado por ejecutivo activo y paginación.
 
-Como encargado de ventas corporativas B2B,
-quiero que el sistema genere alertas de recompra automáticamente,
-para no depender de mi memoria ni de hojas de cálculo.","Vista: Dashboard del Encargado de Ventas > Alertas de recompra activas
-Vista: Ficha del cliente > Fecha de alerta calculada","- [ ] TC-01: El sistema genera una alerta cuando una compra cerrada tiene ciclo de recompra definido
-- [ ] TC-02: La fecha de alerta se calcula a partir de fecha de cierre más ciclo de recompra
-- [ ] TC-03: Una alerta vencida o con vencimiento hoy queda clasificada como Urgente
-- [ ] TC-04: Una alerta con vencimiento entre 1 y 7 días queda clasificada como Próxima
-- [ ] TC-05: Una alerta con vencimiento entre 8 y 30 días queda clasificada como En seguimiento
-- [ ] TC-06: Las alertas fuera de 30 días no aparecen en el widget activo del MVP","- [ ] BE-01: Implementar dominio de cálculo de alertas de recompra
-- [ ] BE-02: Crear job o proceso síncrono de generación para dataset MVP
-- [ ] BE-03: Crear endpoint `GET /api/repurchase-alerts/active`
-- [ ] DB-01: Guardar estado, fecha objetivo y referencia a compra origen
-- [ ] QA-01: Crear pruebas unitarias para reglas de clasificación temporal
-- [ ] QA-02: Crear prueba de integración para alertas desde compras seed
-- [ ] DEVOPS-01: Configurar variable de zona horaria para cálculo consistente","8","Alta","alertas,automatizacion,backend"
-"US-09 | Feature: Mostrar dashboard con contadores de alertas activas","El Dashboard debe permitir que Diego identifique de inmediato cuántas alertas urgentes, próximas y en seguimiento tiene.
+### Frontend Developer
+- [ ] FE-03: Maquetar la Vista: Cartera de Clientes y las tarjetas de empresa correspondientes.
+- [ ] FE-04: Consumir endpoint `GET /api/clientes` y mapear los campos para poblar la vista dinámicamente.
 
-Como encargado de ventas corporativas B2B,
-quiero ver contadores de alertas por urgencia,
-para priorizar los clientes que debo contactar hoy.","Vista: Dashboard del Encargado de Ventas > Alertas de recompra activas > Contador Urgentes
-Vista: Dashboard del Encargado de Ventas > Contador Próximas
-Vista: Dashboard del Encargado de Ventas > Contador En seguimiento","- [ ] TC-01: El contador Urgentes muestra alertas vencidas o con vencimiento hoy
-- [ ] TC-02: El contador Próximas muestra alertas con vencimiento entre 1 y 7 días
-- [ ] TC-03: El contador En seguimiento muestra alertas con vencimiento entre 8 y 30 días
-- [ ] TC-04: Los contadores se actualizan al cerrar, posponer o recalcular una alerta
-- [ ] TC-05: Al hacer clic en un contador se filtra la lista de tarjetas correspondiente
-- [ ] TC-06: El Dashboard muestra estado vacío cuando no hay alertas activas","- [ ] UX-01: Diseñar estados visuales de urgencia para contadores
-- [ ] FE-01: Implementar componente `AlertCounters`
-- [ ] FE-02: Conectar contadores con `GET /api/repurchase-alerts/active`
-- [ ] FE-03: Implementar filtro por categoría temporal
-- [ ] BE-01: Agregar agregados de conteo por estado temporal al endpoint de alertas
-- [ ] QA-01: Validar actualización de contadores tras cambios de alerta
-- [ ] QA-02: Validar accesibilidad básica de estados por texto y color","5","Alta","dashboard,alertas,frontend"
-"US-10 | Feature: Mostrar tarjetas de alerta con acceso a ficha del cliente","Además de contadores, Diego necesita contexto mínimo en cada alerta para decidir qué cliente abrir primero.
+### Quality Assurance
+- [ ] QA-02: Probar la correcta respuesta de la interfaz bajo conexiones de red lentas o inestables.","3","Alta","clientes, listado, sprint-1"
+"US-03 | Feature: Búsqueda de clientes por RUC o Razón Social","Cuando el volumen de la cartera de clientes crece, se vuelve ineficiente buscar un cliente específico manualmente en el listado. Se requiere un buscador en tiempo real en la cabecera.
 
-Como encargado de ventas corporativas B2B,
-quiero ver tarjetas de alerta con empresa, producto, monto y días restantes,
-para escoger rápidamente la alerta más importante y abrir su ficha.","Vista: Dashboard del Encargado de Ventas > Tarjeta de alerta
-Vista: Dashboard del Encargado de Ventas > Botón Ver ficha","- [ ] TC-01: Cada tarjeta muestra nombre de empresa
-- [ ] TC-02: Cada tarjeta muestra producto de la última compra
-- [ ] TC-03: Cada tarjeta muestra monto de la última compra
-- [ ] TC-04: Cada tarjeta muestra días restantes o días vencidos
-- [ ] TC-05: El botón Ver ficha abre la ficha del cliente asociado
-- [ ] TC-06: Las alertas urgentes se ordenan antes que las próximas y en seguimiento","- [ ] FE-01: Implementar componente `RepurchaseAlertCard`
-- [ ] FE-02: Formatear monto en moneda local para lectura comercial
-- [ ] FE-03: Calcular etiqueta visual de días restantes desde la respuesta del backend
-- [ ] FE-04: Conectar botón Ver ficha con ruta `/clientes/:id`
-- [ ] BE-01: Incluir datos resumidos de cliente y compra en endpoint de alertas
-- [ ] QA-01: Validar ordenamiento y navegación desde tarjetas
-- [ ] UX-01: Verificar que la tarjeta permita escaneo rápido en carteras de 15 a 30 clientes","5","Alta","dashboard,tarjetas-alerta,frontend"
-"US-11 | Feature: Posponer alerta de recompra","Cuando Diego no pueda contactar hoy a un cliente, necesita posponer la alerta sin perderla ni cerrarla indebidamente.
+**Como** Encargado de Ventas Comerciales,
+**quiero** buscar empresas por RUC o Razón Social,
+**para** encontrar al instante el cliente comercial que requiero gestionar.","Vista: Cartera de Clientes / Empresas -> Sección: Listado de Cuentas Comerciales -> Buscador por RUC o Razón Social","- [ ] TC-01: Al escribir coincidencia parcial de Razón Social o RUC, el listado se filtra automáticamente.
+- [ ] TC-02: Mostrar un estado 'Sin resultados' claro cuando la búsqueda no devuelva ninguna coincidencia.
+- [ ] TC-03: Restablecer el listado completo al limpiar el campo de búsqueda.","### Backend Developer
+- [ ] BE-04: Extender endpoint `GET /api/clientes` para recibir parámetros opcionales de búsqueda `search` (que busca en RUC y Razón Social).
 
-Como encargado de ventas corporativas B2B,
-quiero posponer una alerta por N días,
-para retomarla en una fecha futura controlada.","Vista: Dashboard del Encargado de Ventas > Tarjeta de alerta > Botón Posponer
-Vista: Ficha del cliente > Acciones > Botón Posponer (N días)","- [ ] TC-01: El usuario puede posponer una alerta desde la tarjeta del Dashboard
-- [ ] TC-02: El usuario puede posponer una alerta desde la Ficha del cliente
-- [ ] TC-03: El sistema solicita o permite definir el número de días de posposición
-- [ ] TC-04: La nueva fecha de alerta se calcula desde la fecha actual más N días
-- [ ] TC-05: La alerta cambia de categoría temporal si corresponde
-- [ ] TC-06: El Dashboard actualiza tarjetas y contadores después de posponer","- [ ] UX-01: Definir patrón de interacción para elegir N días sin crear una pantalla nueva
-- [ ] FE-01: Implementar acción Posponer en tarjeta y ficha
-- [ ] FE-02: Actualizar estado local de alerta después de respuesta exitosa
-- [ ] BE-01: Crear endpoint `PATCH /api/repurchase-alerts/:id/postpone`
-- [ ] BE-02: Validar que `days` sea entero positivo
-- [ ] DB-01: Persistir nueva fecha de alerta y estado temporal
-- [ ] QA-01: Probar posposición desde Dashboard y Ficha del cliente","3","Media","alertas,posponer,postventa"
-"US-12 | Feature: Registrar resultado de contacto desde una alerta","El taskflow del MVP requiere que Diego registre el resultado de la llamada para cerrar la alerta y actualizar el seguimiento sin crear un módulo completo de contactos.
+### Frontend Developer
+- [ ] FE-05: Agregar input de búsqueda en la UI y aplicar técnica debouncing (300ms) para evitar peticiones redundantes.
 
-Como encargado de ventas corporativas B2B,
-quiero registrar el resultado de una llamada de recompra,
-para cerrar la alerta activa y dejar programado el próximo seguimiento.","Modal: Registro de contacto
-Vista: Ficha del cliente > Acciones > Botón Registrar contacto
-Vista: Dashboard del Encargado de Ventas > Alertas de recompra activas","- [ ] TC-01: El botón Registrar contacto abre el modal desde la Ficha del cliente
-- [ ] TC-02: El modal permite seleccionar Interesado en recompra, No interesado actualmente o No contestó
-- [ ] TC-03: El modal permite escribir notas del contacto
-- [ ] TC-04: La fecha del próximo seguimiento aparece por defecto según fecha actual más ciclo de recompra
-- [ ] TC-05: Al guardar, la alerta activa se cierra o reprograma según la fecha seleccionada
-- [ ] TC-06: Al guardar y cerrar, el Dashboard muestra la alerta cerrada y contadores actualizados","- [ ] UX-01: Diseñar modal de registro alineado a arquitectura sin CRUD de contactos
-- [ ] FE-01: Implementar modal con selector, textarea y date input
-- [ ] FE-02: Implementar validaciones de resultado y fecha de próximo seguimiento
-- [ ] BE-01: Crear endpoint `POST /api/repurchase-alerts/:id/contact-result`
-- [ ] BE-02: Persistir resultado, nota y próxima fecha de seguimiento
-- [ ] BE-03: Actualizar estado de alerta a cerrada o reprogramada
-- [ ] QA-01: Automatizar happy path del taskflow completo desde Dashboard hasta guardar modal","8","Alta","registro-contacto,taskflow,alertas"
-"US-13 | Feature: Gestionar notas del encargado de ventas en la ficha","Diego necesita dejar contexto breve sobre el cliente para futuras llamadas sin depender de notas externas.
+### Quality Assurance
+- [ ] QA-03: Probar consultas con combinaciones de mayúsculas/minúsculas, tildes, números parciales y espacios en blanco.","2","Media","clientes, buscador, sprint-1"
+"US-04 | Feature: Visualización de la Ficha del cliente comercial","Antes de contactar al cliente, el encargado comercial debe consultar los datos detallados de contacto, la persona tomadora de decisiones (Jefe de TI o Compras) y quién está a cargo de la cuenta.
 
-Como encargado de ventas corporativas B2B,
-quiero editar notas libres en la ficha del cliente,
-para conservar información relevante antes de una recompra futura.","Vista: Ficha del cliente > Notas del encargado de ventas","- [ ] TC-01: La ficha muestra el texto actual de notas del encargado
-- [ ] TC-02: El usuario puede editar y guardar notas de texto libre
-- [ ] TC-03: Las notas persisten al recargar la ficha
-- [ ] TC-04: Si el guardado falla, el sistema muestra error sin perder el texto escrito
-- [ ] TC-05: El campo acepta notas vacías para limpiar información obsoleta
-- [ ] TC-06: Las notas no modifican el estado de alertas","- [ ] FE-01: Implementar textarea editable para notas en ficha
-- [ ] FE-02: Agregar estado de guardado, éxito y error
-- [ ] BE-01: Crear endpoint `PATCH /api/clients/:id/notes`
-- [ ] BE-02: Sanitizar contenido textual para evitar inyección en render
-- [ ] DB-01: Persistir notas asociadas al cliente y encargado
-- [ ] SEC-01: Validar escape de caracteres especiales en frontend y backend
-- [ ] QA-01: Probar persistencia, limpieza y error de guardado","3","Media","notas,ficha-cliente,postventa"
-"US-14 | Feature: Mostrar actividades del día con llamadas pendientes","El Dashboard debe complementar las alertas con una lista simple de llamadas pendientes del día.
+**Como** Encargado de Ventas Comerciales,
+**quiero** acceder a la ficha técnica del cliente comercial seleccionado,
+**para** visualizar sus datos de contacto principales y el ejecutivo comercial de TechFin asignado.","Vista: Ficha del cliente comercial -> Razón Social, RUC, Contacto Principal (Nombre, Teléfono, Correo) y Encargado Comercial asignado","- [ ] TC-01: Visualización correcta de todos los campos del cliente al hacer clic en 'Ver ficha técnica' desde la cartera.
+- [ ] TC-02: El enlace 'Volver al Dashboard' o 'Volver a Cartera' debe funcionar correctamente.
+- [ ] TC-03: Enlace de teléfono (`tel:`) y correo (`mailto:`) funcionales para iniciar comunicación directa.","### UX/UI Designer
+- [ ] UX-03: Diseñar el layout detallado de la Ficha del cliente incluyendo la sección de datos generales de contacto.
 
-Como encargado de ventas corporativas B2B,
-quiero ver mis llamadas pendientes del día,
-para completar las acciones urgentes sin revisar otra herramienta.","Vista: Dashboard del Encargado de Ventas > Actividades del día > Lista de llamadas pendientes","- [ ] TC-01: La sección Actividades del día muestra llamadas asociadas a alertas urgentes
-- [ ] TC-02: Cada llamada pendiente muestra empresa y motivo de seguimiento
-- [ ] TC-03: Una llamada desaparece de pendientes cuando la alerta se cierra con resultado de contacto
-- [ ] TC-04: Si no hay llamadas pendientes, se muestra estado vacío
-- [ ] TC-05: El usuario puede abrir la ficha del cliente desde una llamada pendiente
-- [ ] TC-06: La lista respeta el encargado activo","- [ ] FE-01: Implementar componente `TodaysActivities`
-- [ ] FE-02: Conectar cada actividad con ruta a Ficha del cliente
-- [ ] BE-01: Crear endpoint `GET /api/activities/today`
-- [ ] BE-02: Derivar llamadas pendientes desde alertas urgentes del encargado activo
-- [ ] QA-01: Validar actualización de actividades tras registrar contacto
-- [ ] UX-01: Revisar que la sección no compita visualmente con el widget de alertas","3","Media","actividades-dashboard,llamadas,frontend,backend"
-"US-15 | Feature: Validación integral, despliegue local y documentación del MVP","Antes de cerrar el MVP v1.0 se necesita validar el happy path completo, dejar el entorno ejecutable y documentar el alcance real.
+### Backend Developer
+- [ ] BE-05: Implementar endpoint `GET /api/clientes/{id}` para obtener la información detallada de una empresa.
 
-Como equipo SCRUM,
-quiero contar con pruebas, despliegue local y documentación mínima,
-para entregar una versión demostrable de registro de clientes y alertas de recompra.","Taskflow 1 completo: Dashboard > tarjeta urgente > Ficha del cliente > Modal Registro de contacto > Guardar y cerrar > Dashboard actualizado
-Arquitectura completa del MVP v1.0","- [ ] TC-01: El happy path del taskflow se completa sin errores desde una alerta urgente
-- [ ] TC-02: El usuario puede registrar un cliente, verlo en lista y abrir su ficha
-- [ ] TC-03: El usuario puede ver alertas activas generadas desde datos de prueba
-- [ ] TC-04: El usuario puede registrar resultado de contacto y ver contador actualizado
-- [ ] TC-05: El entorno local levanta con datos de prueba documentados
-- [ ] TC-06: La documentación declara explícitamente que no existe CRUD independiente de contactos en MVP v1.0","- [ ] QA-01: Crear suite E2E del happy path principal
-- [ ] QA-02: Ejecutar regresión funcional de clientes, ficha y alertas
-- [ ] DEVOPS-01: Configurar scripts de instalación, migración, seed y ejecución local
-- [ ] DEVOPS-02: Preparar archivo de variables de entorno de ejemplo
-- [ ] DOC-01: Documentar alcance, exclusiones, rutas y flujo de demo del MVP v1.0
-- [ ] FE-01: Corregir defectos visuales detectados en revisión responsiva
-- [ ] BE-01: Corregir defectos de API detectados en pruebas de integración","5","Alta","qa,devops,documentacion,release"
+### Frontend Developer
+- [ ] FE-06: Maquetar la Vista: Ficha del cliente comercial e integrar la información general recuperada por la API.
+- [ ] FE-07: Agregar navegación de retorno y enlaces interactivos para llamadas y correos.
+
+### Quality Assurance
+- [ ] QA-04: Verificar que no ocurran errores de carga si el ID del cliente es inválido o no existe (redireccionar a 404 seguro).","3","Alta","clientes, ficha-cliente, sprint-1"
+"US-05 | Feature: Historial y registro de la última adquisición tecnológica","Para automatizar la estimación de obsolescencia del hardware, es indispensable registrar en la ficha del cliente los datos básicos de la última compra: categoría de hardware, cantidad, monto y fecha de la transacción.
+
+**Como** Encargado de Ventas Comerciales,
+**quiero** registrar y visualizar la última adquisición de hardware asociada a un cliente comercial,
+**para** contar con un histórico del equipamiento tecnológico que requiere renovación.","Vista: Ficha del cliente comercial -> Sección: Historial de la Última Adquisición Tecnológica","- [ ] TC-01: Visualizar los campos de Categoría de Hardware, Cantidad, Monto Total y Fecha de Cierre del pedido original.
+- [ ] TC-02: Permitir ingresar/guardar la adquisición con validación de datos (cantidad > 0, monto > 0, fecha anterior o igual a hoy).
+- [ ] TC-03: No permitir registrar más de una adquisición activa por cliente para mantener el foco en la última compra.","### Database Administrator
+- [ ] DB-02: Crear tabla `adquisiciones` con claves foráneas apuntando a `clientes` y constraints de valores positivos.
+
+### Backend Developer
+- [ ] BE-06: Crear endpoints `GET` y `POST` en `/api/clientes/{id}/adquisiciones` para guardar y recuperar el historial de compra.
+
+### Frontend Developer
+- [ ] FE-08: Maquetar la sección de Historial de Adquisición en la Ficha del cliente.
+- [ ] FE-09: Crear componente formulario interno de registro y conectarlo con la API.
+
+### Quality Assurance
+- [ ] QA-05: Validar el ingreso de números negativos, fechas futuras o textos vacíos y asegurar que la interfaz muestre avisos descriptivos.","5","Alta","adquisiciones, hardware, sprint-2"
+"US-06 | Feature: Configuración del ciclo de vida útil del hardware","No todos los equipos tienen la misma vida útil; por ejemplo, las laptops se renuevan en promedio cada 730 días, mientras que un servidor puede durar 1095 días. El vendedor debe poder ajustar este ciclo de vida de forma personalizada por cliente y adquisición.
+
+**Como** Encargado de Ventas Comerciales,
+**quiero** editar el ciclo de vida útil estimado en días para el producto tecnológico del cliente,
+**para** flexibilizar la generación automática de la alerta adaptándose a la realidad del cliente.","Vista: Ficha del cliente comercial -> Sección: Historial de la Última Adquisición Tecnológica -> Campo editable: Ciclo de vida útil estimado del producto (días)","- [ ] TC-01: El campo de ciclo de vida debe ser editable in-situ (inline) y aceptar números enteros positivos de días.
+- [ ] TC-02: El sistema debe calcular y mostrar de forma automática la fecha programada de alerta al guardar el campo.
+- [ ] TC-03: Si el usuario limpia el campo, el sistema debe asignar por defecto un ciclo de vida predefinido (ej. 365 días).","### Backend Developer
+- [ ] BE-07: Implementar endpoint `PATCH /api/adquisiciones/{id}/ciclo-vida` para actualizar los días de ciclo útil y disparar el cálculo de fecha.
+
+### Frontend Developer
+- [ ] FE-10: Crear interfaz interactiva de edición en línea (inline-editing) con validación numérica para el campo de ciclo de vida útil.
+- [ ] FE-11: Consumir la API de actualización y refrescar la fecha programada en pantalla sin recargar la página.
+
+### Quality Assurance
+- [ ] QA-06: Probar casos borde como ciclos de vida extremadamente cortos (1 día) o largos (9999 días) y validar la respuesta del sistema.","3","Alta","configuracion, hardware, sprint-2"
+"US-07 | Feature: Precarga de datos históricos y de prueba (Seed Database)","Para facilitar las pruebas de usabilidad y asegurar que el CRM demuestre su valor de inmediato, se requiere contar con datos históricos de compras anteriores y clientes precargados que simulen de inmediato alertas y seguimientos urgentes.
+
+**Como** Administrador Comercial,
+**quiero** inicializar la base de datos con un script de datos de prueba preestablecido,
+**para** verificar los flujos de alertas críticas y realizar demostraciones del MVP sin necesidad de carga manual.","Por definir (Aplica a base de datos y consola de desarrollo)","- [ ] TC-01: Ejecución exitosa del script de seed poblando al menos 15 clientes comerciales.
+- [ ] TC-02: Generación automática de compras asociadas con fechas de adquisición antiguas que disparen alertas en estado Crítico (hace >365 días), Próximas y Monitoreo.
+- [ ] TC-03: La ejecución recurrente del script limpia la base de datos e inserta el estado inicial de pruebas de forma limpia.","### Database Administrator
+- [ ] DB-03: Escribir el script SQL/Seed con datos realistas para clientes y adquisiciones tecnológicas.
+
+### DevOps Engineer
+- [ ] DEVOPS-01: Automatizar la ejecución del seed en el pipeline de CI/CD para entornos de Staging.
+
+### Backend Developer
+- [ ] BE-08: Exponer un script npm o docker-compose para inicializar/resetear el esquema y cargar el seed con un solo comando.
+
+### Quality Assurance
+- [ ] QA-07: Validar que el volumen y consistencia de los datos seed permita reproducir el happy path del taskflow.","3","Media","bd, devops, seed, sprint-2"
+"US-08 | Feature: Motor de cálculo automático de fecha de alerta de recompra","La automatización del proceso post-venta depende de que el sistema calcule cuándo contactar al cliente sin que el vendedor intervenga. La fecha de la alerta debe autocalcularse sumando el ciclo útil a la fecha de adquisición.
+
+**Como** Administrador Comercial,
+**quiero** que el sistema calcule automáticamente la fecha programada de alerta a partir de la fecha de última adquisición y el ciclo de vida útil del hardware,
+**para** eliminar el cálculo manual y automatizar la programación de alertas de recompra.","Vista: Ficha del cliente comercial -> Sección: Historial de la Última Adquisición Tecnológica -> Campo: Fecha programada de alerta (calculada automáticamente)","- [ ] TC-01: La fecha programada de alerta debe calcularse exactamente como: `fecha_adquisicion` + `ciclo_vida_util_dias`.
+- [ ] TC-02: El cálculo debe ejecutarse de forma automática al insertar una adquisición o actualizar el ciclo de vida útil.
+- [ ] TC-03: La fecha generada debe persistirse en la base de datos en formato UTC y renderizarse localmente en la zona horaria del usuario.","### Database Administrator
+- [ ] DB-04: Crear triggers o constraints de base de datos para recalcular la columna `fecha_alerta` en la tabla de adquisiciones.
+
+### Backend Developer
+- [ ] BE-09: Crear pruebas unitarias para validar la lógica del cálculo matemático de fechas (incluyendo años bisiestos y husos horarios).
+
+### Quality Assurance
+- [ ] QA-08: Verificar que la fecha calculada en el backend coincida exactamente con lo visualizado en el frontend.","4","Alta","alertas, logica-negocio, sprint-2"
+"US-09 | Feature: Dashboard del Encargado de Ventas - Estructura y Navegación","El vendedor comercial requiere un punto de inicio diario. Se debe construir el Dashboard básico con la barra superior de identificación del usuario, ícono de notificaciones y enlaces de ayuda.
+
+**Como** Encargado de Ventas Comerciales,
+**quiero** visualizar un Dashboard estructurado con barra superior, mi nombre de usuario activo y accesos directos,
+**para** realizar mi jornada laboral de manera ágil y controlada.","Vista: Dashboard del Encargado de Ventas Comerciales -> Sección: Barra superior","- [ ] TC-01: El Dashboard debe renderizarse correctamente al iniciar sesión mostrando la barra superior con el nombre del usuario activo.
+- [ ] TC-02: Los íconos de notificaciones de alertas y soporte/ayuda deben ser visibles y responsivos.
+- [ ] TC-03: Menú lateral de navegación funcional para saltar entre el Dashboard y la Cartera de Clientes.","### UX/UI Designer
+- [ ] UX-04: Definir el diseño de la barra de navegación, tipografías corporativas, paleta de colores y componentes comunes del Dashboard.
+
+### Security Engineer
+- [ ] SEC-01: Diseñar y revisar políticas de cabeceras seguras y validación de sesión de usuario activo expuesta en el Dashboard.
+
+### Backend Developer
+- [ ] BE-10: Crear endpoint de perfil de sesión `/api/auth/me` para obtener los datos del ejecutivo comercial en sesión.
+
+### Frontend Developer
+- [ ] FE-12: Implementar el maquetado del Dashboard, barra superior e íconos interactivos.
+- [ ] FE-13: Consumir la sesión del usuario activo para renderizar el nombre de forma dinámica.
+
+### Quality Assurance
+- [ ] QA-09: Probar la responsividad del layout en resoluciones mobile, tablet y desktop.","3","Alta","dashboard, navegacion, sprint-3"
+"US-10 | Feature: Visualización de contadores de alertas de recompra por obsolescencia","Para organizar y optimizar el tiempo, el vendedor necesita priorizar. Se deben mostrar 3 contadores basados en la urgencia temporal de la renovación del hardware de las cuentas comerciales asignadas.
+
+**Como** Encargado de Ventas Comerciales,
+**quiero** ver contadores segmentados por criticidad (Crítico, Renovaciones Próximas y En Monitoreo) en el Dashboard,
+**para** priorizar mis esfuerzos comerciales del día evaluando la urgencia.","Vista: Dashboard del Encargado de Ventas Comerciales -> Sección: Alertas de Recompra por Obsolescencia Tecnológica -> Contadores (Crítico, Próximas, Monitoreo)","- [ ] TC-01: Los contadores deben mostrar los números correctos de alertas activas según las fechas programadas en relación con la fecha actual.
+- [ ] TC-02: Colores visuales diferenciados según criticidad (Crítico = Rojo/Vibrante, Próximas = Naranja/Amarillo, Monitoreo = Azul/Gris).
+- [ ] TC-03: Al hacer clic en un contador, filtrar dinámicamente las tarjetas inferiores del Dashboard.","### Backend Developer
+- [ ] BE-11: Implementar endpoint `/api/alertas/resumen` que agrupe y sume la cantidad de alertas según criticidad (Crítico: <= 0 días restantes, Próximas: 1-7 días, Monitoreo: 8-30 días).
+
+### Frontend Developer
+- [ ] FE-14: Maquetar los 3 widgets contadores con diseño premium (gradientes suaves y micro-animaciones en hover).
+- [ ] FE-15: Conectar los contadores con el endpoint de resumen del backend.
+
+### Quality Assurance
+- [ ] QA-10: Escribir pruebas unitarias en backend y pruebas end-to-end (E2E) para verificar que las alertas se agrupen en la categoría temporal correcta.","5","Alta","dashboard, alertas, contadores, sprint-3"
+"US-11 | Feature: Tarjetas de Alerta de Hardware en Dashboard","El encargado de ventas no solo necesita números agregados, sino conocer la lista detallada de clientes cuyas alertas requieren acción. Se deben mostrar tarjetas con datos básicos de contacto e historial de compra.
+
+**Como** Encargado de Ventas Comerciales,
+**quiero** ver tarjetas individuales para cada alerta activa en el Dashboard, que muestren Razón Social, Producto de última compra, Monto y Días restantes,
+**para** identificar de manera clara los detalles de cada oportunidad de renovación.","Vista: Dashboard del Encargado de Ventas Comerciales -> Sección: Alertas de Recompra por Obsolescencia Tecnológica -> Tarjeta de Alerta de Hardware","- [ ] TC-01: Renderizar los detalles requeridos de la última compra de hardware y la razón social en cada tarjeta.
+- [ ] TC-02: Calcular dinámicamente y mostrar en días el tiempo restante para el fin de ciclo útil (con valor negativo si ya venció).
+- [ ] TC-03: Ordenar por defecto las tarjetas de mayor a menor urgencia (Críticos arriba).","### Backend Developer
+- [ ] BE-12: Crear endpoint `/api/alertas/listado` que traiga las alertas detalladas uniendo tablas clientes y adquisiciones, ordenadas por urgencia.
+
+### Frontend Developer
+- [ ] FE-16: Implementar las tarjetas de alerta con transiciones suaves al cargar y estilo visual destacado para tarjetas en estado Crítico.
+- [ ] FE-17: Consumir el endpoint `/api/alertas/listado` para renderizar el feed de alertas en el Dashboard.
+
+### Quality Assurance
+- [ ] QA-11: Validar que el ordenamiento de criticidad sea consistente al cargar la vista.","4","Alta","dashboard, alertas, tarjetas, sprint-3"
+"US-12 | Feature: Enlace directo de Alertas a Ficha Técnica del Cliente","Para optimizar la llamada y no perder tiempo buscando al cliente en la base de datos, el vendedor debe navegar con un solo clic de la tarjeta de alerta a la ficha del cliente.
+
+**Como** Encargado de Ventas Comerciales,
+**quiero** hacer clic en el botón 'Ver ficha técnica del cliente' en la tarjeta de la alerta,
+**para** ir directamente a la ficha detallada del cliente comercial seleccionado y revisar todo su contexto antes de contactarlo.","Vista: Dashboard del Encargado de Ventas Comerciales -> Tarjeta de Alerta de Hardware -> Botón: Ver ficha técnica del cliente -> Vista: Ficha del cliente comercial","- [ ] TC-01: Clic en el botón redirige al usuario a `/clientes/{id}` cargando la ficha respectiva.
+- [ ] TC-02: La redirección debe ser limpia, sin demoras y conservando el estado de autenticación.","### Frontend Developer
+- [ ] FE-18: Configurar rutas dinámicas en el enrutador del frontend para recibir el ID del cliente.
+- [ ] FE-19: Enlazar el botón de la tarjeta con la ruta de la ficha técnica pasándole el ID correspondiente.
+
+### Quality Assurance
+- [ ] QA-12: Realizar pruebas de flujo de navegación en bucle (Dashboard -> Ficha -> Dashboard) para asegurar que no haya errores de render.","2","Alta","navegacion, alertas, sprint-3"
+"US-13 | Feature: Modal de Registro de Gestión Post-Venta","Cuando el vendedor realiza la llamada telefónica para ofrecer la renovación de los equipos, debe dejar constancia inmediata de la respuesta y notas detalladas de la conversación en una bitácora centralizada.
+
+**Como** Encargado de Ventas Comerciales,
+**quiero** abrir un modal interactivo dentro de la ficha del cliente para registrar la gestión comercial realizada, seleccionando el resultado y escribiendo notas detalladas,
+**para** documentar la interacción y mantener un historial actualizado de las negociaciones de hardware.","Vista: Ficha del cliente comercial -> Sección: Acciones Comerciales -> Botón: Registrar gestión post-venta -> Modal: Registro de contacto comercial","- [ ] TC-01: Apertura del modal al hacer clic en 'Registrar gestión post-venta'.
+- [ ] TC-02: Selector de resultados con opciones fijas (Interesado, No interesado, No contestó) y campo de texto libre para notas.
+- [ ] TC-03: Botón de Cancelar o Ícono cerrar descartan cambios y cierran el modal.
+- [ ] TC-04: Botón Guardar envía información de contacto al backend y almacena en base de datos.","### UX/UI Designer
+- [ ] UX-05: Diseñar la UI del Modal: Registro de contacto comercial considerando un diseño limpio y enfocado.
+
+### Database Administrator
+- [ ] DB-05: Crear tabla `gestiones_contacto` (id, cliente_id, resultado, notas, fecha_gestion) para almacenar las llamadas.
+
+### Backend Developer
+- [ ] BE-13: Crear endpoint `POST /api/clientes/{id}/gestiones` para registrar el contacto comercial.
+
+### Frontend Developer
+- [ ] FE-20: Crear componente Modal reutilizable e integrar el formulario de contacto con sus validaciones básicas.
+- [ ] FE-21: Consumir endpoint `POST /api/clientes/{id}/gestiones` para guardar los datos.
+
+### Quality Assurance
+- [ ] QA-13: Probar el comportamiento del modal frente a cierres inesperados (clic fuera, tecla Esc) y validar almacenamiento de notas extensas.","5","Alta","gestiones, modal, sprint-4"
+"US-14 | Feature: Programación y edición de la fecha del próximo contacto","Al guardar el resultado de la llamada, es crítico definir cuándo contactar al cliente de nuevo. El sistema debe sugerir una fecha por defecto (hoy + ciclo de vida), pero el vendedor puede sobreescribirla.
+
+**Como** Encargado de Ventas Comerciales,
+**quiero** confirmar o editar la fecha sugerida para el próximo contacto comercial al momento de registrar la gestión,
+**para** programar el siguiente seguimiento de manera precisa según la disponibilidad del cliente.","Modal: Registro de contacto comercial -> Campo editable: Fecha del próximo contacto","- [ ] TC-01: Auto-completar el campo con fecha actual + días de ciclo de vida del equipo.
+- [ ] TC-02: Permitir la selección manual de una nueva fecha a través de un selector de calendario.
+- [ ] TC-03: Impedir la selección de fechas pasadas para el próximo contacto.","### Backend Developer
+- [ ] BE-14: Recibir y validar la fecha del próximo contacto en el payload del endpoint de registro de gestiones, actualizando el campo respectivo en la base de datos.
+
+### Frontend Developer
+- [ ] FE-22: Integrar un componente DatePicker interactivo en el modal de contacto con bloqueo de fechas anteriores a hoy.
+- [ ] FE-23: Implementar la lógica para autocalcular el valor por defecto en base al ciclo de vida del equipo asignado al cliente.
+
+### Quality Assurance
+- [ ] QA-14: Verificar que el backend rechace fechas pasadas e interactuar con el selector en diferentes formatos de fecha regional.","3","Alta","gestiones, calendario, sprint-4"
+"US-15 | Feature: Postergación manual de alertas de renovación","Si un cliente comunica que no está listo para renovar sus laptops o que desea posponer la decisión 15 días, el vendedor debe poder aplazar la alerta sin necesidad de cambiar los datos maestros del ciclo de hardware.
+
+**Como** Encargado de Ventas Comerciales,
+**quiero** posponer manualmente la alerta de renovación de un cliente especificando un número de días para su postergación,
+**para** silenciar alertas temporales de clientes que no están listos para la compra en este momento.","Vista: Dashboard -> Tarjeta de Alerta -> Botón: Posponer alerta || Vista: Ficha del cliente comercial -> Sección: Acciones Comerciales -> Botón: Posponer alerta de renovación (N días)","- [ ] TC-01: Mostrar un aviso rápido o selector para ingresar el número de días a posponer (ej: 7, 15, 30 días).
+- [ ] TC-02: Reprogramar internamente la fecha de alerta sumando los días ingresados.
+- [ ] TC-03: Desaparecer la alerta de la sección de Críticos o Próximos de inmediato.","### Backend Developer
+- [ ] BE-15: Crear endpoint `POST /api/alertas/{id}/posponer` que reciba los días a posponer y actualice la fecha programada de alerta.
+
+### Frontend Developer
+- [ ] FE-24: Implementar interacción rápida de postergación en tarjetas de alerta y ficha del cliente.
+- [ ] FE-25: Enviar la petición POST y notificar al usuario con un Toast de confirmación de éxito.
+
+### Quality Assurance
+- [ ] QA-15: Comprobar el recálculo correcto de la fecha reprogramada y que la tarjeta desaparezca del listado actual.","3","Media","alertas, postergacion, sprint-4"
